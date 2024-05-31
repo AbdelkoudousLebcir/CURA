@@ -3,10 +3,8 @@ package com.example.cura
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,6 +16,7 @@ class PersonalizeActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var backButton: ImageView
     private lateinit var adapter: PersonalizePagerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,12 +26,16 @@ class PersonalizeActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         viewPager = findViewById(R.id.viewPager)
         progressBar = findViewById(R.id.progressBar)
         backButton = findViewById(R.id.backButton)
 
         adapter = PersonalizePagerAdapter(supportFragmentManager)
         viewPager.adapter = adapter
+
+        // Set the offscreen page limit to the number of fragments you have
+        viewPager.offscreenPageLimit = adapter.count - 1
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
@@ -43,11 +46,11 @@ class PersonalizeActivity : AppCompatActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                //check if it's the last step to make the progress 100 instead of 33*3=99
-                if (position == 2)
+                // Check if it's the last step to make the progress 100 instead of 33*3=99
+                if (position == 7)
                     animateProgressBar(100)
                 else
-                    animateProgressBar((position+1)*33)
+                    animateProgressBar(((position + 1) * 14.28).toInt())
                 // Show/hide back button based on current position
                 backButton.visibility = if (position > 0) View.VISIBLE else View.INVISIBLE
             }
@@ -56,10 +59,8 @@ class PersonalizeActivity : AppCompatActivity() {
         })
 
         backButton.setOnClickListener {
-
             if (viewPager.currentItem > 0) {
                 viewPager.currentItem = viewPager.currentItem - 1
-
             }
         }
     }
