@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -55,6 +56,11 @@ class Step2_4Fragment : Fragment() {
         )
 
         button.text = buttonSpannableString
+
+
+        button.setOnClickListener{
+            Toast.makeText(context, "Continue", Toast.LENGTH_SHORT).show()
+        }
 
         var heights = (100..250).toList()
         val rvHeightPicker: RecyclerView = view.findViewById(R.id.rvHeightPicker)
@@ -123,7 +129,7 @@ class Step2_4Fragment : Fragment() {
                 heights = (40..100).toList() // Converting to inches
                 rvHeightPicker.adapter = HeightFIAdapter(heights, false)
                 heightTextView.text = "3' 4\""
-                unit.text = "in"
+                unit.text = "ft/in"
             }
         }
 

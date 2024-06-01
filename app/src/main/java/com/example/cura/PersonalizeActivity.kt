@@ -47,10 +47,10 @@ class PersonalizeActivity : AppCompatActivity() {
 
             override fun onPageSelected(position: Int) {
                 // Check if it's the last step to make the progress 100 instead of 33*3=99
-                if (position == 7)
+                if (position == 9)
                     animateProgressBar(100)
                 else
-                    animateProgressBar(((position + 1) * 14.28).toInt())
+                    animateProgressBar(((position + 1) * 10).toInt())
                 // Show/hide back button based on current position
                 backButton.visibility = if (position > 0) View.VISIBLE else View.INVISIBLE
             }

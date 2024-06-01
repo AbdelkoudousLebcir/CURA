@@ -25,7 +25,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="42dp"
         android:layout_marginEnd="60dp"
-        android:progress="24"
+        android:progress="10"
         android:progressDrawable="@drawable/download_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/backButton"

@@ -87,7 +87,7 @@
             android:layout_marginTop="40dp"
             android:fontFamily="@font/plus_jakarta_sans_variablefont_wght"
             android:paddingVertical="18dp"
-            android:text="in"
+            android:text="ft/in"
             android:textAlignment="center"
             android:textColor="#5D6A85"
             android:textFontWeight="600"
@@ -118,7 +118,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView6"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="@+id/textView6"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="32dp"
             android:layout_marginStart="10dp"/>
         <com.google.android.material.button.MaterialButton
             android:id="@+id/continueButton"

@@ -3,4 +3,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="selected_image">#D0E4FF</color>
+    <color name="rh_factor_default">#5D6A85</color>
 </resources>
