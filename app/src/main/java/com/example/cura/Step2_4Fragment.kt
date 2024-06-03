@@ -2,6 +2,7 @@ package com.example.cura
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.button.MaterialButton
 
 class Step2_4Fragment : Fragment() {
@@ -31,6 +33,7 @@ class Step2_4Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_step2_4, container, false)
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
 
         val button = view.findViewById<MaterialButton>(R.id.continueButton)
         val buttonText = "Continue     "
@@ -132,6 +135,21 @@ class Step2_4Fragment : Fragment() {
                 unit.text = "ft/in"
             }
         }
+
+        button.setOnClickListener {
+
+            with(sharedPref!!.edit()) {
+                putString(
+                    "Step2_4Data",
+                    "His height is: ${heightTextView.text} ${checked}."
+                )
+                apply()
+            }
+
+            val viewPager = activity?.findViewById<ViewPager>(R.id.viewPager)
+            viewPager?.currentItem = viewPager?.currentItem?.plus(1) ?: 0
+        }
+
 
         return view
     }

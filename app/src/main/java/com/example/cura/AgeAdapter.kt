@@ -30,6 +30,9 @@ class AgeAdapter(private val ages: List<Int>) : RecyclerView.Adapter<AgeAdapter.
         )
 
     }
+    fun getSelectedAge(): Int? {
+        return if (selectedPosition != RecyclerView.NO_POSITION) ages[selectedPosition] else null
+    }
 
     override fun getItemCount(): Int = ages.size
 }

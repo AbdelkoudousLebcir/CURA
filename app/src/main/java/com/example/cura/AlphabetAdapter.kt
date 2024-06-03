@@ -29,7 +29,7 @@ class AlphabetAdapter(private val alphabetList: List<Char>, private val onLetter
         fun bind(letter: Char, isSelected: Boolean) {
             alphabetText.text = letter.toString()
             if (isSelected) {
-                alphabetText.setBackgroundResource(R.drawable.button_grey)
+                alphabetText.setBackgroundResource(R.drawable.btn_grey3)
                 alphabetText.setTextColor(ContextCompat.getColor(itemView.context, android.R.color.white))
             } else {
                 alphabetText.setBackgroundResource(0)

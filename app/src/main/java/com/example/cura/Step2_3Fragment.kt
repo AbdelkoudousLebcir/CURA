@@ -2,6 +2,7 @@ package com.example.cura
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -14,10 +15,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.button.MaterialButton
 
 class Step2_3Fragment : Fragment() {
@@ -33,6 +36,7 @@ class Step2_3Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_step2_3, container, false)
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
 
 
         val button = view.findViewById<MaterialButton>(R.id.continueButton)
@@ -136,11 +140,31 @@ class Step2_3Fragment : Fragment() {
         }
 
 
+        button.setOnClickListener {
+
+
+            with(sharedPref!!.edit()) {
+                putString(
+                    "Step2_3Data",
+                    "His weight is: ${heightTextView.text} ${checked}."
+                )
+                apply()
+            }
+
+            val viewPager = activity?.findViewById<ViewPager>(R.id.viewPager)
+            viewPager?.currentItem = viewPager?.currentItem?.plus(1) ?: 0
+        }
+
+
+
+
+
 
 
 
         return view
     }
+
     fun animateColorChange(view: View, startColor: Int, endColor: Int) {
         val animator = ObjectAnimator.ofArgb(view, "textColor", startColor, endColor)
         animator.duration = 300 // duration in milliseconds
@@ -152,6 +176,5 @@ class Step2_3Fragment : Fragment() {
         animator.duration = 300 // duration in milliseconds
         animator.start()
     }
-//TODO: ajust the margin bottom of the lbs/kg text
 
 }

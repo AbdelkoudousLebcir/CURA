@@ -1,5 +1,6 @@
 package com.example.cura
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -12,7 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.button.MaterialButton
 
 class Step2_6Fragment : Fragment() {
@@ -26,6 +29,8 @@ class Step2_6Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_step2_6, container, false)
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+
 
         val cardView1 = view.findViewById<CardView>(R.id.cardView1)
         val cardView2 = view.findViewById<CardView>(R.id.cardView2)
@@ -66,10 +71,35 @@ class Step2_6Fragment : Fragment() {
         cardView3.setOnClickListener { onEatingHabitSelected(cardView3, textView3, imageView3) }
         cardView4.setOnClickListener { onEatingHabitSelected(cardView4, textView4, imageView4) }
 
+
+        button.setOnClickListener {
+            if (!::selectedTextView.isInitialized) {
+                Toast.makeText(context, "Please select an option", Toast.LENGTH_SHORT).show()
+            } else {
+
+
+                with(sharedPref!!.edit()) {
+                    putString(
+                        "Step2_6Data",
+                        "His eating habit is: ${selectedTextView.text}."
+                    )
+                    apply()
+                }
+
+                val viewPager = activity?.findViewById<ViewPager>(R.id.viewPager)
+                viewPager?.currentItem = viewPager?.currentItem?.plus(1) ?: 0
+            }
+        }
+
+
         return view
     }
 
-    private fun onEatingHabitSelected(cardView: CardView, textView: TextView, imageView: ImageView) {
+    private fun onEatingHabitSelected(
+        cardView: CardView,
+        textView: TextView,
+        imageView: ImageView
+    ) {
         // Reset previous selection
         resetEatingHabitSelection()
 

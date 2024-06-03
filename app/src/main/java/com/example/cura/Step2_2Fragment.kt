@@ -1,5 +1,6 @@
 package com.example.cura
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.SpannableString
@@ -13,6 +14,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.button.MaterialButton
 
 
@@ -31,6 +33,7 @@ class Step2_2Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_step2_2, container, false)
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
 
         val button = view.findViewById<MaterialButton>(R.id.continueButton)
         val buttonText = "Continue     "
@@ -73,6 +76,23 @@ class Step2_2Fragment : Fragment() {
 
 
         recyclerView.post { centerSelectedItem() }
+        button.setOnClickListener {
+            if (ageAdapter.getSelectedAge() == null) {
+                Toast.makeText(context, "Please select a valid age", Toast.LENGTH_LONG)
+                    .show()
+            } else {
+                    with(sharedPref!!.edit()) {
+                        putString(
+                            "Step2_2Data",
+                            "His age is: ${ageAdapter.getSelectedAge()}."
+                        )
+                        apply()
+                    }
+
+                val viewPager = activity?.findViewById<ViewPager>(R.id.viewPager)
+                viewPager?.currentItem = viewPager?.currentItem?.plus(1) ?: 0
+            }
+        }
 
 
         return view
